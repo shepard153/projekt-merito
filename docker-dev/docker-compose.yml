@@ -1,15 +1,15 @@
 version: '3'
 services:
-  db:
+  merito_db:
     image: postgres:14.2
     volumes:
       - ~/tmp/databasebackup:/tmp
-      - pgdata:/var/lib/postgresql/data
+      - meritopgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: meritoadmin
       POSTGRES_PASSWORD: admin123
       POSTGRES_DB: merito_development
-  web:
+  merito_web:
     build: .
     ports:
       - "3000:3000"
@@ -21,6 +21,6 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      - db
+      - merito_db
 volumes:
-  pgdata:
+  meritopgdata:

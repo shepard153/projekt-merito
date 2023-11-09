@@ -2,6 +2,14 @@ require_relative "boot"
 
 require "rails/all"
 
+def require_all(_dir)
+  Dir[File.expand_path(File.join(File.dirname(File.absolute_path(__FILE__)), _dir)) + "/**/*.rb"].each do |file|
+      require file
+  end
+end
+
+require_all('../lib')
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  merito_db:
+    image: postgres:14.2
+    volumes:
+      - ~/tmp/databasebackup:/tmp
+      - meritopgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: meritoadmin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: merito_development
+  merito_web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      #zmienic sciezke po lewej stronie do takiej jaka odpowiada lokalnie dla programisty
+      - /home/lisek/project-merito/backend/:/home/hosting/workspace/backend
+      - /home/lisek/project-merito/frontend/:/home/hosting/workspace/frontend
+      - ~/.ssh:/home/hosting/.ssh
+    stdin_open: true
+    tty: true
+    depends_on:
+      - merito_db
+volumes:
+  meritopgdata:

@@ -30,6 +30,8 @@
 
   <!-- Page Content -->
   <main>
+    @livewire('notifications')
+
     {{ $slot }}
 
     @filamentScripts

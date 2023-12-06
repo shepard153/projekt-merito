@@ -20,6 +20,7 @@ class Post extends Model
         'author_id',
         'image',
         'status',
+        'is_featured'
     ];
 
     public function author(): BelongsTo

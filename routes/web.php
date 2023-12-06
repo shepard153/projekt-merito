@@ -2,6 +2,7 @@
 
 use App\Livewire\Blog;
 use App\Livewire\Home;
+use App\Livewire\Panel\Posts;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Home::class)->name('home');
 Route::get('/blog', Blog::class)->name('blog');
 
-Route::view('dashboard', 'dashboard')
+Route::get('panel', Posts::class)
     ->middleware(['auth', 'verified'])
     ->name('panel');
 

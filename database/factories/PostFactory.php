@@ -23,6 +23,7 @@ class PostFactory extends Factory
             'slug' => function (array $attributes) {
                 return Str::slug($attributes['title']);
             },
+            'image' => fake()->imageUrl(1200, 600),
             'content' => fake()->paragraphs(3, true),
             'status' => fake()->randomElement(['draft', 'published']),
             'author_id' => User::factory()->create(),

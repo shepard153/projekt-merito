@@ -14,11 +14,11 @@ class Home extends Component
     #[Computed]
     public function posts(): Collection
     {
-        $posts = Post::with('author')->get();
+        $posts = Post::with('author')->orderByDesc('created_at')->where('status', 'published')->get();
 
         return collect([
             'featured' => $posts->where('is_featured', true)->take(2),
-            'recent'   => $posts->sortByDesc('created_at', false)->take(6),
+            'recent'   => $posts->sortByDesc('created_at')->take(6),
         ]);
     }
 

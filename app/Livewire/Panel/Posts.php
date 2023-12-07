@@ -4,7 +4,9 @@ namespace App\Livewire\Panel;
 
 use App\Models\Post;
 use App\Traits\SendsPostActionNotifications;
+use Exception;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -41,11 +43,13 @@ class Posts extends Component implements HasForms, HasTable
     /**
      * @param Table $table
      * @return Table
+     * @throws Exception
      */
     public function table(Table $table): Table
     {
         return $table
             ->query(Post::query())
+            ->defaultSort('created_at', 'desc')
             ->emptyStateDescription('')
             ->columns([
                 TextColumn::make('title')
@@ -134,8 +138,16 @@ class Posts extends Component implements HasForms, HasTable
                 ->label(__('Tytuł'))
                 ->required()
                 ->maxLength(255),
+            FileUpload::make('image')
+                ->label(__('Zdjęcie główne'))
+                ->image()
+                ->disk('public')
+                ->directory('post-images')
+                ->required(),
             RichEditor::make('content')
                 ->label(__('Treść'))
+                ->fileAttachmentsDisk('public')
+                ->fileAttachmentsDirectory('post-images')
                 ->toolbarButtons([
                     'attachFiles',
                     'blockquote',

@@ -8,7 +8,7 @@
       @foreach ($this->posts->get('featured') as $featuredPost)
         <a class="group relative" href="{{ route('post.show', $featuredPost->getAttribute('slug')) }}" wire:navigate preload="preload">
           <div class="aspect-[2/1] w-full rounded-lg bg-gray-100 shadow-card transition group-hover:opacity-80">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQl35FVUy3cTld1Fa7ae3yriZ9uoJuqft1-Q&usqp=CAU"
+            <img src="{{ str_contains($featuredPost->getAttribute('image'), 'placeholder') ? $featuredPost->getAttribute('image') : asset('storage/' . $featuredPost->getAttribute('image')) }}"
                  alt="Text"
                  class="h-full w-full rounded-lg object-cover" loading="lazy">
           </div>
@@ -34,18 +34,18 @@
   <section class="py-20">
     <div class="mx-auto w-full max-w-2xl px-6 lg:max-w-7xl">
       <div class="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
-        <h2 class="text-3xl font-bold sm:text-4xl lg:text-[40px]">Najnowsze artykuły</h2>
-        <router-link to="/"
+        <h2 class="text-3xl font-bold sm:text-4xl lg:text-[40px]">{{ __('Najnowsze artykuły') }}</h2>
+        <a href="{{ route('blog') }}" wire:navigate
                      class="inline-flex rounded-sm transition duration-300 leading-none focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600/80 font-bold text-emerald-600 hover:text-emerald-700">
-          Zobacz wszystkie →
-        </router-link>
+          {{ __('Zobacz wszystkie') }} →
+        </a>
       </div>
 
       <div class="mt-12 grid gap-x-8 gap-y-12 lg:grid-cols-3">
         @foreach ($this->posts->get('recent') as $recentPost)
           <a class="group relative" href="{{ route('post.show', $recentPost->getAttribute('slug')) }}" wire:navigate>
             <div class="aspect-[2/1] w-full rounded-lg bg-gray-100 shadow-card transition group-hover:opacity-80">
-              <img src="https://www.wodkanawesela.pl/wp-content/uploads/2023/05/wodka-stock-prestige-smooth-05l.jpg"
+              <img src="{{ str_contains($recentPost->getAttribute('image'), 'placeholder') ? $recentPost->getAttribute('image') : asset('storage/' . $recentPost->getAttribute('image')) }}"
                    alt="ALT" class="h-full w-full rounded-lg object-cover"
                    loading="lazy">
             </div>

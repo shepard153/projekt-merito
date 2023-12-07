@@ -3,7 +3,10 @@
       {{ $title }}
   </x-slot>
 
-  <img class="mx-auto" src="{{ $post->getAttribute('image') }}" alt={{ $post->getAttribute('image') }}""/>
+  <img class="mx-auto"
+       src="{{ str_contains($post->getAttribute('image'), 'placeholder') ? $post->getAttribute('image') : asset('storage/' . $post->getAttribute('image')) }}"
+       alt={{ $post->getAttribute('image') }}""
+  />
 
   <div class="flex flex-col space-y-4 py-8">
     <div>

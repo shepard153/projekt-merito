@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
              'password' => 'test',
          ]);
 
-         \App\Models\Post::factory(15)->create([
+         \App\Models\Post::factory(40)->create([
              'author_id' => $user
             ]);
     }

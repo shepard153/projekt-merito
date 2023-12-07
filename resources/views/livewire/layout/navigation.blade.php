@@ -15,15 +15,9 @@
   </div>
   <div class="xl:gap-18 flex items-center gap-16">
     <div class="hidden items-center gap-4 md:gap-8 lg:flex">
-      <x-nav-link :href="route('panel')"  class="inline-flex rounded-sm transition duration-300 leading-none focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/80 p-1 font-bold hover:text-gray-600">
+      <x-nav-link :href="route('panel')" class="inline-flex rounded-sm transition duration-300 leading-none focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/80 p-1 font-bold hover:text-gray-600">
         Panel
       </x-nav-link>
-    </div>
-    <div class="-mr-1 flex items-center gap-2">
-      <button class="inline-flex rounded-sm p-1 leading-none text-black transition duration-300 hover:text-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/80 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
-              @click.prevent="searchModalIsOpen = true">
-        <img src="https://picperf.io/https://laravel-news.com/images/icons/search.svg" class="h-6 w-6" alt="Search">
-      </button>
     </div>
   </div>
 </div>

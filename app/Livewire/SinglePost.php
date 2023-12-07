@@ -2,23 +2,23 @@
 
 namespace App\Livewire;
 
-use App\Models\Post as PostModel;
+use App\Models\Post;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-class Post extends Component
+class SinglePost extends Component
 {
-    public PostModel $post;
+    public Post $post;
 
     public function mount(string $slug): void
     {
-        $this->post = PostModel::where('slug', $slug)->firstOrFail();
+        $this->post = Post::where('slug', $slug)->firstOrFail();
     }
 
     #[Layout('layouts.guest')]
     public function render(): View
     {
-        return view('livewire.post', ['title' => $this->post->getAttribute('title')]);
+        return view('livewire.single-post', ['title' => $this->post->getAttribute('title')]);
     }
 }

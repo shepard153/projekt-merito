@@ -42,9 +42,15 @@ new class extends Component
         >
           Panel
         </x-nav-link>
+
+        <x-nav-link wire:click="logout"
+                    class="cursor-pointer inline-flex rounded-sm transition duration-300 leading-none focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/80 p-1 font-bold hover:text-gray-600"
+        >
+          Wyloguj
+        </x-nav-link>
       @elseif (auth()->user())
         <x-nav-link wire:click="logout"
-                    class="inline-flex rounded-sm transition duration-300 leading-none focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/80 p-1 font-bold hover:text-gray-600"
+                    class="cursor-pointer inline-flex rounded-sm transition duration-300 leading-none focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/80 p-1 font-bold hover:text-gray-600"
         >
           Wyloguj
         </x-nav-link>

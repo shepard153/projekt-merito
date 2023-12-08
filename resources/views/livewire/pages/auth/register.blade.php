@@ -29,7 +29,7 @@ new #[Layout('layouts.login')] class extends Component
 
         $validated['password'] = Hash::make($validated['password']);
 
-        event(new Registered($user = User::create($validated)));
+        event(new Registered($user = User::create($validated)->assignRole('user')));
 
         Auth::login($user);
 

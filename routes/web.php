@@ -23,6 +23,7 @@ Route::get('/post/{slug}', SinglePost::class)->name('post.show');
 
 Route::get('panel', Posts::class)
     ->middleware(['auth', 'verified'])
+    ->can('access panel')
     ->name('panel');
 
 Route::view('profile', 'profile')

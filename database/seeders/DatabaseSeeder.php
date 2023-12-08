@@ -12,11 +12,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            RolesAndPermissionsSeeder::class
+        ]);
+
          $user = \App\Models\User::factory()->create([
              'name' => 'Test User',
              'email' => 'test@example.com',
              'password' => 'test',
-         ]);
+         ])->assignRole('admin');
 
          \App\Models\Post::factory(40)->create([
              'author_id' => $user

@@ -19,14 +19,14 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(rand(3, 6)),
-            'slug' => function (array $attributes) {
+            'title'       => fake()->sentence(rand(3, 6)),
+            'slug'        => function (array $attributes) {
                 return Str::slug($attributes['title']);
             },
-            'image' => fake()->imageUrl(1200, 600),
-            'content' => fake()->paragraphs(3, true),
-            'status' => fake()->randomElement(['draft', 'published']),
-            'author_id' => User::factory()->create(),
+            'image'       => fake()->imageUrl(1200, 600),
+            'content'     => fake()->paragraphs(rand(8, 20), true),
+            'status'      => fake()->randomElement(['draft', 'published']),
+            'author_id'   => User::factory()->create(),
             'is_featured' => fake()->boolean,
         ];
     }

@@ -11,7 +11,6 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Set;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\CreateAction;
@@ -114,6 +113,12 @@ class Posts extends Component implements HasForms, HasTable
                         ->icon('heroicon-o-pencil')
                         ->color('primary')
                         ->form($this->postFormFields())
+                        ->fillForm(function (Post $post) {
+                            $data = $post->toArray();
+                            $data['publish'] = $post->getAttribute('status') === 'published';
+
+                            return $data;
+                        })
                         ->mutateFormDataUsing(function (array $data): array {
                             return $this->mutateFormData($data);
                         }),

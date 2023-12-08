@@ -3,30 +3,35 @@
     {{ $title }}
   </x-slot>
 
+  <!-- Post image -->
   <img class="mx-auto"
        src="{{ str_contains($post->getAttribute('image'), 'placeholder') ? $post->getAttribute('image') : asset('storage/' . $post->getAttribute('image')) }}"
        alt={{ $post->getAttribute('image') }}""
   />
 
+  <!-- Post author and publish date -->
   <div class="flex flex-col space-y-4 py-8">
     <div>
       {{ $post->getAttribute('author')->getAttribute('name') }}
     </div>
     <div>
-      {{ \Carbon\Carbon::parse($post->getAttribute('published_at'))->format('d.m.Y') }}
+      {{ \Carbon\Carbon::parse($post->getAttribute('updated_at'))->format('d.m.Y') }}
     </div>
   </div>
 
+  <!-- Post content -->
   <div class="flex flex-col py-8">
     {!! $post->getAttribute('content') !!}
   </div>
 
+  <!-- Post comments -->
   <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
     <div class="max-w-2xl mx-auto px-4">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">{{ __('Komentarze (:count)', ['count' => $post->getAttribute('comments')->count()]) }}</h2>
       </div>
 
+      <!-- New comment form -->
       @if (auth()->user()?->can('create comments'))
         <form class="mb-6" wire:submit="addComment">
           <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200">
@@ -36,6 +41,7 @@
                       placeholder="{{ ('Twój komentarz...') }}" required></textarea>
           </div>
 
+          <!-- Submit comment button -->
           <button type="submit" wire:loading.class="opacity-50" wire:target="addComment"
                   class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-emerald-700 rounded-lg focus:ring-4 focus:ring-emerald-200 hover:bg-emerald-800">
             <span wire:loading wire:target="addComment" class="inline-flex">
@@ -52,6 +58,7 @@
           </button>
         </form>
       @else
+        <!-- Not logged in message -->
         <div class="mb-3 text-base bg-white rounded-lg">
           <p class="text-gray-500">{{ __('Musisz być zalogowany, aby dodać komentarz.') }}</p>
           <a href="{{ route('login', ['withReturn' => $post->getAttribute('slug')]) }}"
@@ -61,10 +68,12 @@
         </div>
       @endif
 
+      <!-- Comments list -->
       @foreach ($post->getAttribute('comments')->sortByDesc('created_at') as $comment)
         <article class="p-6 mb-3 ml-6 lg:ml-12 text-base bg-white rounded-lg">
           <footer class="flex justify-between items-center mb-2">
             <div class="flex items-center">
+              <!-- Comment author name and avatar -->
               <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">
                 <img class="mr-2 w-6 h-6 rounded-full"
                         src="{{ $comment->getAttribute('author')?->getAttribute('profile_photo_path')
@@ -74,6 +83,7 @@
                 {{ $comment->getAttribute('author')?->getAttribute('name') ?? __('Użytkownik nieznany') }}
               </p>
 
+              <!-- Comment publish date -->
               <p class="text-sm text-gray-600">
                 <time pubdate
                       datetime="{{ $comment->getAttribute('created_at')->format('Y-m-d') }}"
@@ -83,6 +93,7 @@
               </p>
             </div>
 
+            <!-- Delete comment button -->
             @if (auth()->id() === $comment->getAttribute('user_id') || auth()->user()?->can('delete comments'))
               <button wire:click="deleteComment({{ $comment->getAttribute('id') }})"
                       class="inline-flex items-center p-2 text-sm font-medium text-center text-red-500 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
@@ -94,6 +105,7 @@
             @endif
           </footer>
 
+          <!-- Comment content -->
           <p class="text-gray-500">{{ $comment->getAttribute('content') }}</p>
         </article>
       @endforeach

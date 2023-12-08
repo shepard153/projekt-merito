@@ -4,8 +4,10 @@
   </x-slot>
 
   <section class="mt-6 py-20">
+    <!-- Featured posts section (2 posts) -->
     <div class="mx-auto grid max-w-2xl items-start gap-x-16 gap-y-8 px-6 lg:max-w-7xl lg:grid-cols-2">
       @foreach ($this->posts->get('featured') as $featuredPost)
+        <!-- Post image -->
         <a class="group relative" href="{{ route('post.show', $featuredPost->getAttribute('slug')) }}" wire:navigate preload="preload">
           <div class="aspect-[2/1] w-full rounded-lg bg-gray-100 shadow-card transition group-hover:opacity-80">
             <img src="{{ str_contains($featuredPost->getAttribute('image'), 'placeholder') ? $featuredPost->getAttribute('image') : asset('storage/' . $featuredPost->getAttribute('image')) }}"
@@ -13,12 +15,14 @@
                  class="h-full w-full rounded-lg object-cover" loading="lazy">
           </div>
 
+          <!-- Badge with post author -->
           <div class="mt-6 flex items-center gap-3">
             <span class="inline-flex rounded-full px-4 py-2 text-xs font-bold leading-4 border border-emerald-600 text-emerald-600">
               {{ $featuredPost->getAttribute('author')->getAttribute('name') }}
             </span>
           </div>
 
+          <!-- Post title -->
           <h3 class="mt-4 text-xl font-bold transition group-hover:text-emerald-600 sm:text-2xl">
             {{ $featuredPost->getAttribute('title') }}
           </h3>
@@ -41,8 +45,10 @@
         </a>
       </div>
 
+      <!-- Recent posts section (6 posts) -->
       <div class="mt-12 grid gap-x-8 gap-y-12 lg:grid-cols-3">
         @foreach ($this->posts->get('recent') as $recentPost)
+          <!-- Post image -->
           <a class="group relative" href="{{ route('post.show', $recentPost->getAttribute('slug')) }}" wire:navigate>
             <div class="aspect-[2/1] w-full rounded-lg bg-gray-100 shadow-card transition group-hover:opacity-80">
               <img src="{{ str_contains($recentPost->getAttribute('image'), 'placeholder') ? $recentPost->getAttribute('image') : asset('storage/' . $recentPost->getAttribute('image')) }}"
@@ -50,6 +56,7 @@
                    loading="lazy">
             </div>
 
+            <!-- Post title -->
             <h3 class="mt-4 text-xl font-bold transition group-hover:text-emerald-600 sm:text-2xl">
               {{ $recentPost->getAttribute('title') }}
             </h3>

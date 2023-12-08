@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
              $user->assignRole('user');
          });
 
-         \App\Models\Post::factory(200)->create([
+         \App\Models\Post::factory(100)->create([
              'author_id' => $admin
          ])->each(function (\App\Models\Post $post) use ($users) {
              $post->comments()->saveMany(\App\Models\Comment::factory(rand(21, 37))->state([

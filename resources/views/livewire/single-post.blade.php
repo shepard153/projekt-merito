@@ -65,12 +65,15 @@
         <article class="p-6 mb-3 ml-6 lg:ml-12 text-base bg-white rounded-lg">
           <footer class="flex justify-between items-center mb-2">
             <div class="flex items-center">
-              <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold"><img
-                        class="mr-2 w-6 h-6 rounded-full"
-                        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                        alt="{{ $comment->getAttribute('author')?->getAttribute('name') ?? __('Użytkownik nieznany') }}">
+              <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">
+                <img class="mr-2 w-6 h-6 rounded-full"
+                        src="{{ $comment->getAttribute('author')?->getAttribute('profile_photo_path')
+                            ?? "https://via.placeholder.com/100x100.png/0066aa?text={$comment->getAttribute('author')?->getAttribute('name')}" }}"
+                        alt="{{ $comment->getAttribute('author')?->getAttribute('name') ?? __('Użytkownik nieznany') }}"
+                >
                 {{ $comment->getAttribute('author')?->getAttribute('name') ?? __('Użytkownik nieznany') }}
               </p>
+
               <p class="text-sm text-gray-600">
                 <time pubdate
                       datetime="{{ $comment->getAttribute('created_at')->format('Y-m-d') }}"

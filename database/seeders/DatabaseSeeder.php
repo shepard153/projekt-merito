@@ -16,14 +16,22 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class
         ]);
 
-         $user = \App\Models\User::factory()->create([
+         $admin = \App\Models\User::factory()->create([
              'name' => 'Test User',
              'email' => 'test@example.com',
              'password' => 'test',
          ])->assignRole('admin');
 
-         \App\Models\Post::factory(40)->create([
-             'author_id' => $user
-            ]);
+         $users = \App\Models\User::factory(50)->create();
+
+         \App\Models\Post::factory(200)->create([
+             'author_id' => $admin
+         ])->each(function (\App\Models\Post $post) use ($users) {
+             $post->comments()->saveMany(\App\Models\Comment::factory(rand(21, 37))->state([
+                 'post_id' => $post->getAttribute('id')
+             ])->sequence(fn () => [
+                 'user_id' => $users->random()->getAttribute('id')
+             ])->create());
+         });
     }
 }

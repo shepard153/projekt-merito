@@ -3,6 +3,7 @@
 use App\Livewire\Blog;
 use App\Livewire\Home;
 use App\Livewire\Panel\Posts;
+use App\Livewire\Panel\Users;
 use App\Livewire\SinglePost;
 use Illuminate\Support\Facades\Route;
 
@@ -21,10 +22,10 @@ Route::get('/', Home::class)->name('home');
 Route::get('/blog', Blog::class)->name('blog');
 Route::get('/post/{slug}', SinglePost::class)->name('post.show');
 
-Route::get('panel', Posts::class)
-    ->middleware(['auth', 'verified'])
-    ->can('access panel')
-    ->name('panel');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/panel', Posts::class)->can('access panel')->name('panel');
+    Route::get('/users', Users::class)->can('access panel')->name('users');
+});
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])

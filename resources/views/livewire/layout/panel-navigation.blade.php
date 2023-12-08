@@ -23,7 +23,7 @@ new class extends Component
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('panel') }}" wire:navigate>
+                    <a href="{{ route('home') }}" wire:navigate>
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
@@ -33,6 +33,10 @@ new class extends Component
                     <x-nav-link :href="route('panel')" :active="request()->routeIs('panel')" wire:navigate>
                         {{ __('Posty') }}
                     </x-nav-link>
+
+                  <x-nav-link :href="route('users')" :active="request()->routeIs('users')" wire:navigate>
+                    {{ __('Użytkownicy') }}
+                  </x-nav-link>
                 </div>
             </div>
 
@@ -53,13 +57,13 @@ new class extends Component
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile')" wire:navigate>
-                            {{ __('Profile') }}
+                            {{ __('Profil') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
                         <button wire:click="logout" class="w-full text-start">
                             <x-dropdown-link>
-                                {{ __('Log Out') }}
+                                {{ __('Wyloguj') }}
                             </x-dropdown-link>
                         </button>
                     </x-slot>
@@ -84,6 +88,10 @@ new class extends Component
             <x-responsive-nav-link :href="route('panel')" :active="request()->routeIs('panel')" wire:navigate>
                 {{ __('Posty') }}
             </x-responsive-nav-link>
+
+          <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')" wire:navigate>
+            {{ __('Użytkownicy') }}
+          </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -95,13 +103,13 @@ new class extends Component
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile')" wire:navigate>
-                    {{ __('Profile') }}
+                    {{ __('Profil') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
                     <x-responsive-nav-link>
-                        {{ __('Log Out') }}
+                        {{ __('Wyloguj') }}
                     </x-responsive-nav-link>
                 </button>
             </div>

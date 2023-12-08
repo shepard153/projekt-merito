@@ -5,19 +5,13 @@ namespace App\Livewire;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Traits\SendsPostActionNotifications;
-use Filament\Actions\Concerns\InteractsWithActions;
-use Filament\Actions\Contracts\HasActions;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-class SinglePost extends Component implements HasForms, HasActions
+class SinglePost extends Component
 {
-    use InteractsWithActions;
-    use InteractsWithForms;
     use SendsPostActionNotifications;
 
     public string $comment = '';

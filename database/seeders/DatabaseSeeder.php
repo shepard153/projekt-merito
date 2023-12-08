@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,12 +16,14 @@ class DatabaseSeeder extends Seeder
         ]);
 
          $admin = \App\Models\User::factory()->create([
-             'name' => 'Test User',
-             'email' => 'test@example.com',
+             'name'     => 'Test User',
+             'email'    => 'test@example.com',
              'password' => 'test',
          ])->assignRole('admin');
 
-         $users = \App\Models\User::factory(50)->create();
+         $users = \App\Models\User::factory(50)->create()->each(function (\App\Models\User $user) {
+             $user->assignRole('user');
+         });
 
          \App\Models\Post::factory(200)->create([
              'author_id' => $admin

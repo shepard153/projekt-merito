@@ -5,12 +5,12 @@ $ cd projekt-merito
 $ touch database/database.sqlite
 $ mv .env.example .env
 ```
-2. Fill in .env following values to fit your config, e.g.:
+2. Fill in .env with following values:
 ```
 APP_URL=http://127.0.0.1:8000
 
 DB_CONNECTION=sqlite
-#DB_DATABASE=laravel
+#DB_DATABASE=laravel // comment out
 ```
 3. Install dependencies:
 ```
